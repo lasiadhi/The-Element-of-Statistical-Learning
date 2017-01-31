@@ -1,0 +1,37 @@
+import rpy2.robjects as robjects
+import pandas.rpy.common as com
+import pandas as pd
+from rpy2.robjects import pandas2ri
+import matplotlib.pyplot as plt  # for scatter plot
+from ggplot import *
+pandas2ri.activate()
+
+## load .RData and converts to pd.DataFrame
+robj    = robjects.r.load("/Users/lasiadhi/Dropbox-2/Dropbox/Statistical_Learning/Chapter2/ESL.mixture.rda")
+#myRData = com.load_data(robj)
+
+for sets in robj:
+    myRData = com.load_data(sets)
+
+# load each table to seperate dataframes
+marginal= pd.DataFrame(myRData['marginal'])
+means   = pd.DataFrame(myRData['means'])
+px1     = pd.DataFrame(myRData['px1'])
+px2     = pd.DataFrame(myRData['px2'])
+xnew    = pd.DataFrame(myRData['xnew'])
+x       = pd.DataFrame(myRData['x'])
+x.columns = ['x1', 'x2']
+x.index = x.index - 1
+
+y       = pd.DataFrame(myRData['y'])
+y.columns = ['y']
+
+mydata = x.join(y)
+
+#plt.scatter(x[0],x[1])
+
+#p = ggplot(mydata, aes(x='x1',y='x2')) + geom_point(aes(color='y'))
+p = ggplot(mydata, aes(x='x1',y='x2', color = 'y')) 
+p + geom_point() #
+p + geom_abline(intercept = 0, slope = -1.5)
+#ggplot(mydata, aes(x='x1',y='x2')) + geom_point(colour="red", size = 1) + geom_point(colour="green", size = 4) + geom_point(aes(color='y')) 

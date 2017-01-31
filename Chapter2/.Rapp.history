@@ -1,0 +1,3 @@
+load("/Users/lasiadhi/Dropbox-2/Dropbox/Statistical_Learning/Chapter2/ESL.mixture.rda")
+ESL.mixture
+load("/Users/lasiadhi/Dropbox-2/Dropbox/Statistical_Learning/Chapter2/mixture.rda")
